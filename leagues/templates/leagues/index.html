@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sports ORM 2</title>
+</head>
+
+<body>
+    <h1>Sports ORM I</h1>
+
+    <h3>1. Todos los equipos en la Pacific Basketball Conference</h3>
+    {% for q in q1 %}
+    <ul>
+        <li>Nombre equipo: {{q.team_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>2. Todos los jugadores (actuales) en los Chicago Cavaliers:</h3>
+    {% for q in q2 %}
+    <ul>
+        <li>{{q.first_name}} {{q.last_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>3. Todos los jugadores (actuales) en la International Collegiate Baseball Conference</h3>
+    {% for q in q3 %}
+    <ul>
+        <li>Team: {{q.curr_team.team_name}} - Player: {{q.first_name}} {{q.last_name}}</li>
+
+    </ul>
+    {% endfor %}
+
+    <h3>4. Todos los jugadores (actuales) en la Conferencia Americana de Fútbol Amateur con el apellido "Morris"</h3>
+    {% for q in q4 %}
+    <ul>
+        <li>League: {{q.curr_team.league.name}} - Team: {{q.curr_team.team_name}} - Player: {{q.first_name}} {{q.last_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>5. Todos los jugadores de fútbol</h3>
+    {% for q in q5 %}
+    <ul>
+        <li>Player: {{q.first_name}} {{q.last_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>6. Todos los equipos con un jugador (actual) llamado "Sophia"</h3>
+    {% for q in q6 %}
+    <ul>
+        <li>Team: {{q.curr_team.team_name}} - Player: {{q.first_name}} {{q.last_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>7. Todas las ligas con un jugador (actual) llamado "Sophia"</h3>
+    {% for q in q6 %}
+    <ul>
+        <li>League: {{q.curr_team.league.name}} - Player: {{q.first_name}} {{q.last_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>8. Todos con el apellido "Sanchez" que NO (actualmente) juegan para los Washington Phillies</h3>
+    {% for q in q8 %}
+    <ul>
+        <li> Player: {{q.first_name}} {{q.last_name}} - Team: {{q.curr_team.team_name}} </li>
+    </ul>
+    {% endfor %}
+
+    <h3>9. Todos los equipos, pasados y presentes, con los que Samuel Ramirez ha jugado</h3>
+    {% for q in q9 %}
+    <ul>
+        <li>Team: {{q.team_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>10. Todos los jugadores, pasados y presentes, de Celtics de Minnesota</h3>
+    {% for q in q10 %}
+    <ul>
+        <li>Player: {{q.first_name}} {{q.last_name}} - Current Team: {{q.curr_team.team_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>11. Todos los jugadores que anteriormente estaban (pero que no lo están) con los Atlanta Vikings</h3>
+    {% for q in q11 %}
+    <ul>
+        <li>Player: {{q.first_name}} {{q.last_name}} - Current Team: {{q.curr_team.team_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>12. Cada equipo para el que Matthew Allen jugó antes de unirse a los Montreal Diamondbacks</h3>
+    {% for q in q12 %}
+    <ul>
+        <li> Team: {{q.team_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>13. Todos llamados "Olivia" que alguna vez han jugado en la Atlantic Basketball League</h3>
+    {% for q in q13 %}
+    <ul>
+        <li>Player: {{q.first_name}} {{q.last_name}}</li>
+    </ul>
+    {% endfor %}
+
+    <h3>14. Todos los equipos que han tenido 35 o más jugadores, pasados y presentes.</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Team</th>
+                <th>Players amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for q in q14 %}
+            <tr>
+                <td>{{q.id}}</td>
+                <td>{{q.team_name}}</td>
+                <td>{{q.all_players__count}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- <ul>
+            <li>Team: Players amount: {{q.all_players__count}}</li>
+        </ul> -->
+
+
+    <h3>15. Todos los jugadores y el número de equipos para los que jugó, ordenados por la cantidad de equipos para los que han jugado </h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Player ID</th>
+                <th>Player</th>
+                <th>Teams amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for q in q15 %}
+            <tr>
+                <td>{{q.id}}</td>
+                <td>{{q.first_name}} {{q.last_name}}</td>
+                <td>{{q.all_teams__count}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- <ul>
+        <li>{{q.first_name}} {{q.last_name}}</li>
+    </ul> -->
+    <a href="/">Subir</a>
+
+    <!-- <h1>Leagues</h1>
+		<ol>
+			{% for league in leagues %}
+				<li>{{league.name}}</li>
+			{% empty %}
+				<p>No leagues found.  Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
+			{% endfor %}
+		</ol>
+		<h1>Teams</h1>
+		<ol>
+			{% for team in teams %}
+				<li>{{team.location}} {{team.team_name}}</li>
+			{% empty %}
+				<p>No teams found.  Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
+			{% endfor %}
+		</ol>
+		<h1>Players</h1>
+		<ol>
+			{% for player in players %}
+				<li>{{player.first_name}} {{player.last_name}}</li>
+			{% empty %}
+				<p>No teams found.  Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
+			{% endfor %}
+		</ol> -->
+</body>
+
+</html>
